@@ -17,8 +17,6 @@ animations = [{
 
 [node name="DurableEnemy" instance=ExtResource("1_a5mog")]
 script = ExtResource("2_146gx")
-random_strength = 10.0
-shakeFade = 5.0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_hsjsd")

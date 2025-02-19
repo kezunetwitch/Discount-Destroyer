@@ -47,6 +47,7 @@ size = Vector2(27, 28)
 [node name="powerupBase" type="Area2D"]
 collision_mask = 7
 script = ExtResource("1_tdtgw")
+select = 4
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0jyj6")

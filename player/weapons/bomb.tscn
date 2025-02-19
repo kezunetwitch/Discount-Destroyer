@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cnbueb1ud6gim"]
+[gd_scene load_steps=10 format=3 uid="uid://cnbueb1ud6gim"]
 
 [ext_resource type="Script" path="res://player/weapons/bomb.gd" id="1_muc87"]
 [ext_resource type="Script" path="res://player/weapons/bomb_states/fired_state.gd" id="2_rqgka"]
@@ -27,6 +27,8 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o4tmi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_akquk"]
 
 [node name="Bomb" type="Area2D"]
 collision_mask = 7
@@ -59,5 +61,11 @@ script = ExtResource("3_sjhkl")
 [node name="dud_state" type="Node" parent="States"]
 script = ExtResource("3_cvap7")
 
+[node name="RegularCollider" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RegularCollider"]
+shape = SubResource("CircleShape2D_akquk")
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="RegularCollider" to="." method="_on_regular_collider_area_entered"]

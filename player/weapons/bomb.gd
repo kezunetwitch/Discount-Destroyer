@@ -49,3 +49,8 @@ func _on_area_entered(area: Area2D) -> void:
 			print("no boom")
 	else:
 		pass
+
+
+func _on_regular_collider_area_entered(area: Area2D) -> void:
+	if area is Enemy and current_state == "fired":
+		change_state("boom")

@@ -16,6 +16,6 @@ func _process(_float) -> void:
 		level_complete.emit(scene_path)
 		
 #if the player enters this area, move on to the next level
-func _on_body_entered(body: Node) -> void:
+func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		level_complete.emit(scene_path)

@@ -9,7 +9,7 @@ var t : float = 0.0
 
 func _ready() -> void:
 	speed  = 20
-
+	powerup_rate = 5
 	health  = 30
 
 func _physics_process(delta: float) -> void:

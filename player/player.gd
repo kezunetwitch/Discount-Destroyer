@@ -54,18 +54,22 @@ func shoot() -> void:
 	b.sprite.play("player")
 	b.global_position = muzzle.global_position
 	if spread_shot:
-		b = bullet.instantiate()
-		bullet_storage.add_child(b)
-		b.bullet_origin = "player"
-		b.sprite.play("player")
-		b.global_position = muzzle.global_position
-		b.bullet_spread = "right"
-		b = bullet.instantiate()
-		bullet_storage.add_child(b)
-		b.bullet_origin = "player"
-		b.sprite.play("player")
-		b.global_position = muzzle.global_position
-		b.bullet_spread = "left"
+		var spread_jam = randi_range(1,3)
+		if spread_jam == 1:
+			pass
+		else:
+			b = bullet.instantiate()
+			bullet_storage.add_child(b)
+			b.bullet_origin = "player"
+			b.sprite.play("player")
+			b.global_position = muzzle.global_position
+			b.bullet_spread = "right"
+			b = bullet.instantiate()
+			bullet_storage.add_child(b)
+			b.bullet_origin = "player"
+			b.sprite.play("player")
+			b.global_position = muzzle.global_position
+			b.bullet_spread = "left"
 	can_shoot = false
 	var jammed = jam_checker()
 	if !jammed:

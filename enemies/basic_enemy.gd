@@ -9,7 +9,7 @@ var dead : bool = false
 var on_screen : bool
 var can_shoot : bool
 
-var powerup_rate : int = 1
+var powerup_rate : int = 10
 
 @onready var enemy_bullet : PackedScene = preload("res://player/weapons/bullet.tscn")
 @onready var bullet_storage : Node = get_parent().get_parent().get_node("Bullets")
@@ -78,27 +78,26 @@ func randomOffset() -> Vector2:
 func _on_pop_finished() -> void:
 	queue_free()
 
-		
 func make_powerup(pos) -> void:
 	if randi_range(1, powerup_rate) == 1:
 		var p = powerup_instance.instantiate()
 		powerup_storage.add_child(p)
 		p.global_position = pos
+		p.select = randi_range(1,4)
 
 func die() -> void:
-	
-	die_sound.play()
-	can_shoot = false
-	shoot_timer.stop()
-	sprite.visible = false
-	await get_tree().create_timer(.01).timeout
-	position.x = -100
-	
-
+	if on_screen:
+		die_sound.play()
+		can_shoot = false
+		shoot_timer.stop()
+		sprite.visible = false
+		await get_tree().create_timer(.01).timeout
+		position.x = -100
 
 func shoot_bullet() -> void:
-	var b = enemy_bullet.instantiate()
-	bullet_storage.add_child(b)
-	b.global_position = muzzle.global_position
-	b.bullet_origin = "enemy"
-	b.sprite.play("enemy")
+	if on_screen == true:
+		var b = enemy_bullet.instantiate()
+		bullet_storage.add_child(b)
+		b.global_position = muzzle.global_position
+		b.bullet_origin = "enemy"
+		b.sprite.play("enemy")

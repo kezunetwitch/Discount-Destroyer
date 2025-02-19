@@ -2,10 +2,10 @@ extends Enemy
 
 
 func _ready() -> void:
-	speed  = 20
+	speed  = 10
 
 	health  = 200
-	
+	powerup_rate = 3
 	enemy_bullet = preload("res://player/weapons/bullet.tscn")
 
 func _process(delta: float) -> void:
