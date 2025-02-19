@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://ba2bkicairju7"]
+
+[ext_resource type="PackedScene" uid="uid://bq7cse635gdg" path="res://player/player.tscn" id="1_edsgp"]
+[ext_resource type="Script" path="res://camera.gd" id="2_ta8du"]
+[ext_resource type="PackedScene" uid="uid://bhws4beiekc2x" path="res://enemies/basic_enemy.tscn" id="3_3y01v"]
+[ext_resource type="Script" path="res://gui.gd" id="4_gh4fh"]
+[ext_resource type="Script" path="res://levels/level_completer.gd" id="5_qt8tk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c1tjk"]
+
+[node name="Level1" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_edsgp")]
+position = Vector2(576, 584)
+
+[node name="Bullets" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+script = ExtResource("2_ta8du")
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="BasicEnemy" parent="Enemies" instance=ExtResource("3_3y01v")]
+position = Vector2(576, -80)
+
+[node name="BasicEnemy2" parent="Enemies" instance=ExtResource("3_3y01v")]
+position = Vector2(192, -192)
+
+[node name="BasicEnemy3" parent="Enemies" instance=ExtResource("3_3y01v")]
+position = Vector2(960, -288)
+
+[node name="BasicEnemy4" parent="Enemies" instance=ExtResource("3_3y01v")]
+position = Vector2(576, -200)
+
+[node name="BasicEnemy5" parent="Enemies" instance=ExtResource("3_3y01v")]
+position = Vector2(192, -312)
+
+[node name="BasicEnemy6" parent="Enemies" instance=ExtResource("3_3y01v")]
+position = Vector2(960, -408)
+
+[node name="GUI" type="CanvasLayer" parent="."]
+script = ExtResource("4_gh4fh")
+
+[node name="Health" type="Label" parent="GUI"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Health "
+
+[node name="Bombs" type="Label" parent="GUI"]
+offset_top = 24.0
+offset_right = 54.0
+offset_bottom = 47.0
+text = "Bombs"
+
+[node name="JammedNotifier" type="RichTextLabel" parent="GUI"]
+offset_left = 312.0
+offset_top = 192.0
+offset_right = 840.0
+offset_bottom = 384.0
+bbcode_enabled = true
+text = "[center][font_size=68][color=red][b]GUN JAMMED![/b][/color][/font_size]
+[font_size=38][i]Keep Firing to Clear It![/i][/font_size][/center]"
+
+[node name="level_completer" type="Area2D" parent="."]
+script = ExtResource("5_qt8tk")
+scene_path = "res://main_menu.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="level_completer"]
+shape = SubResource("RectangleShape2D_c1tjk")

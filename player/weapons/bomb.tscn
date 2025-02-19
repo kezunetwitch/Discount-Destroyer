@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://cnbueb1ud6gim"]
+
+[ext_resource type="Script" path="res://player/weapons/bomb.gd" id="1_muc87"]
+[ext_resource type="Script" path="res://player/weapons/bomb_states/fired_state.gd" id="2_rqgka"]
+[ext_resource type="Texture2D" uid="uid://dcw3f16wg8q77" path="res://assets/weapons/ufoRed.png" id="2_wa00p"]
+[ext_resource type="Texture2D" uid="uid://cptt2na22f6w3" path="res://assets/weapons/ufoGreen.png" id="2_xi2d4"]
+[ext_resource type="Script" path="res://player/weapons/bomb_states/dud_state.gd" id="3_cvap7"]
+[ext_resource type="Script" path="res://player/weapons/bomb_states/boom_state.gd" id="3_sjhkl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n67ls"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wa00p")
+}],
+"loop": true,
+"name": &"dud",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xi2d4")
+}],
+"loop": true,
+"name": &"fired",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o4tmi"]
+
+[node name="Bomb" type="Area2D"]
+collision_mask = 7
+script = ExtResource("1_muc87")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_n67ls")
+animation = &"fired"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_o4tmi")
+disabled = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+autostart = true
+
+[node name="States" type="Node" parent="."]
+
+[node name="fired_state" type="Node" parent="States"]
+script = ExtResource("2_rqgka")
+
+[node name="boom_state" type="Node" parent="States"]
+script = ExtResource("3_sjhkl")
+
+[node name="dud_state" type="Node" parent="States"]
+script = ExtResource("3_cvap7")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

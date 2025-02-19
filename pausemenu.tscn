@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca250nn1ekw2o"]
+
+[ext_resource type="Script" path="res://menus.gd" id="1_sr1r3"]
+
+[node name="Menus" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_sr1r3")
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+process_mode = 3
+visible = false
+
+[node name="Resume" type="Button" parent="PauseMenu"]
+process_mode = 3
+offset_left = 504.0
+offset_top = 312.0
+offset_right = 648.0
+offset_bottom = 343.0
+text = "Resume"
+
+[node name="Quit" type="Button" parent="PauseMenu"]
+offset_left = 504.0
+offset_top = 408.0
+offset_right = 648.0
+offset_bottom = 439.0
+text = "Quit"
+
+[connection signal="pressed" from="PauseMenu/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PauseMenu/Quit" to="." method="_on_quit_pressed"]

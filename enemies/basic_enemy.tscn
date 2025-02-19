@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhws4beiekc2x"]
+
+[ext_resource type="Script" path="res://enemies/basic_enemy.gd" id="1_oadbo"]
+[ext_resource type="Texture2D" uid="uid://dr8gc43qkv0uk" path="res://assets/enemies/enemyGreen1.png" id="2_1rkij"]
+[ext_resource type="AudioStream" uid="uid://cuqt3cjlhqori" path="res://assets/player/rumble3.ogg" id="3_md7d7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r8fea"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1rkij")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m24h7"]
+
+[node name="BasicEnemy" type="Area2D"]
+collision_mask = 7
+script = ExtResource("1_oadbo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_r8fea")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.72078, 1.75246)
+shape = SubResource("CircleShape2D_m24h7")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, 27)
+
+[node name="shoot_timer" type="Timer" parent="."]
+
+[node name="muzzle" type="Area2D" parent="."]
+
+[node name="shoot_vissy" type="VisibleOnScreenNotifier2D" parent="muzzle"]
+position = Vector2(0, -31)
+
+[node name="pop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_md7d7")
+volume_db = -4.0
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="timeout" from="shoot_timer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="screen_entered" from="muzzle/shoot_vissy" to="." method="_on_shoot_vissy_screen_entered"]
+[connection signal="finished" from="pop" to="." method="_on_pop_finished"]

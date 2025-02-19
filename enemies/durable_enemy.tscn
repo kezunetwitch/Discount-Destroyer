@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://d5asrabvkii7"]
+
+[ext_resource type="PackedScene" uid="uid://bhws4beiekc2x" path="res://enemies/basic_enemy.tscn" id="1_a5mog"]
+[ext_resource type="Script" path="res://enemies/durable_enemy.gd" id="2_146gx"]
+[ext_resource type="Texture2D" uid="uid://x7cfv1b688v5" path="res://assets/enemies/enemyGreen4.png" id="3_4x28s"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hsjsd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_4x28s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="DurableEnemy" instance=ExtResource("1_a5mog")]
+script = ExtResource("2_146gx")
+random_strength = 10.0
+shakeFade = 5.0
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_hsjsd")
+
+[node name="shoot_timer" parent="." index="3"]
+wait_time = 1.5

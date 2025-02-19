@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://bq7cse635gdg"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_qj7if"]
+[ext_resource type="Texture2D" uid="uid://bn78q2jcupkfm" path="res://assets/player/playerShip3_green.png" id="2_rls2j"]
+[ext_resource type="Script" path="res://player/states/move_state.gd" id="2_ytqt1"]
+[ext_resource type="Script" path="res://player/states/idle_state.gd" id="3_dqect"]
+[ext_resource type="Texture2D" uid="uid://bscmnqer7f0dj" path="res://assets/player/playerShip3_red.png" id="3_eb5gy"]
+[ext_resource type="Script" path="res://player/states/jammed_state.gd" id="3_qw4l5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ic1ny"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_rls2j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_eb5gy")
+}],
+"loop": true,
+"name": &"jammed",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2tc7f"]
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_qj7if")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -5)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ic1ny")
+animation = &"jammed"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_2tc7f")
+
+[node name="States" type="Node" parent="."]
+
+[node name="move_state" type="Node" parent="States"]
+script = ExtResource("2_ytqt1")
+
+[node name="jammed_state" type="Node" parent="States"]
+script = ExtResource("3_qw4l5")
+
+[node name="idle_state" type="Node" parent="States"]
+script = ExtResource("3_dqect")
+
+[node name="shoot_timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="muzzle" type="Area2D" parent="."]
+position = Vector2(0, -20)
+
+[node name="bomb_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="shoot_timer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="bomb_timer" to="." method="_on_bomb_timer_timeout"]

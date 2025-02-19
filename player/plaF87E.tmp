@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq7cse635gdg"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_qj7if"]
+[ext_resource type="Script" path="res://player/states/move_state.gd" id="2_ytqt1"]
+[ext_resource type="Script" path="res://player/states/idle_state.gd" id="3_dqect"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2tc7f"]
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_qj7if")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -10.0
+offset_top = -15.0
+offset_right = 10.0
+offset_bottom = 15.0
+color = Color(0, 0.531385, 0.286547, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_2tc7f")
+
+[node name="States" type="Node" parent="."]
+
+[node name="move_state" type="Node" parent="States"]
+script = ExtResource("2_ytqt1")
+
+[node name="idle_state" type="Node" parent="States"]
+script = ExtResource("3_dqect")
+
+[node name="shoot_timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="muzzle" type="Area2D" parent="."]
+position = Vector2(0, -17)
+
+[connection signal="timeout" from="shoot_timer" to="." method="_on_shoot_timer_timeout"]

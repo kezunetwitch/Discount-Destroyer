@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b41fya7gss7m0"]
+
+[ext_resource type="PackedScene" uid="uid://b3lljabxxwgf2" path="res://player/weapons/bullet.tscn" id="1_m4s1d"]
+[ext_resource type="Script" path="res://enemies/weapons/homing_bullet.gd" id="2_h67vn"]
+
+[node name="HomingBullet" instance=ExtResource("1_m4s1d")]
+script = ExtResource("2_h67vn")
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+rotation = 1.5708
+animation = &"enemy"

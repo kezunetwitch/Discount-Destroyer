@@ -1,0 +1,80 @@
+[gd_scene load_steps=11 format=3 uid="uid://b3lljabxxwgf2"]
+
+[ext_resource type="Script" path="res://player/weapons/bullet.gd" id="1_g1d4g"]
+[ext_resource type="Texture2D" uid="uid://gg2opfqu4cuw" path="res://assets/weapons/laserRed05.png" id="2_g1hme"]
+[ext_resource type="Texture2D" uid="uid://p256cnsbxqsg" path="res://assets/weapons/laserRed09.png" id="3_2aiab"]
+[ext_resource type="Texture2D" uid="uid://bmluo57o1ivaj" path="res://assets/weapons/laserRed08.png" id="4_aeoag"]
+[ext_resource type="Texture2D" uid="uid://cmsmlm6h20wpv" path="res://assets/weapons/laserBlue05.png" id="5_82ut5"]
+[ext_resource type="Texture2D" uid="uid://bj5ore6ilp6c3" path="res://assets/weapons/laserBlue09.png" id="6_evbyq"]
+[ext_resource type="Texture2D" uid="uid://cqbdqdh03vql3" path="res://assets/weapons/laserBlue08.png" id="7_nwkma"]
+[ext_resource type="AudioStream" uid="uid://cuqt3cjlhqori" path="res://assets/player/rumble3.ogg" id="8_seuhf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m3wd6"]
+radius = 4.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3fd1l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g1hme")
+}],
+"loop": true,
+"name": &"enemy",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_aeoag")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_2aiab")
+}],
+"loop": false,
+"name": &"enemypop",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_82ut5")
+}],
+"loop": true,
+"name": &"player",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_nwkma")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_evbyq")
+}],
+"loop": false,
+"name": &"playerpop",
+"speed": 5.0
+}]
+
+[node name="Bullet" type="Area2D"]
+scale = Vector2(0.512809, 0.512809)
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_g1d4g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -14)
+shape = SubResource("CapsuleShape2D_m3wd6")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3fd1l")
+animation = &"player"
+
+[node name="pop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_seuhf")
+volume_db = -7.0
+pitch_scale = 2.0
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

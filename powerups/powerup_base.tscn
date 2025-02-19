@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://c5fvnmr340ifn"]
+
+[ext_resource type="Texture2D" uid="uid://7ts6rdysubts" path="res://assets/powerups/powerupGreen_star.png" id="1_nqoy7"]
+[ext_resource type="Script" path="res://powerups/powerup_base.gd" id="1_tdtgw"]
+[ext_resource type="Texture2D" uid="uid://iub65sbd050o" path="res://assets/powerups/powerupGreen_bolt.png" id="2_i7hwe"]
+[ext_resource type="Texture2D" uid="uid://byv8bnkfpb6t5" path="res://assets/powerups/powerupGreen_shield.png" id="3_83u28"]
+[ext_resource type="Texture2D" uid="uid://b7u5f4gd1rouu" path="res://assets/powerups/powerupBlue.png" id="4_qdohp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0jyj6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_nqoy7")
+}],
+"loop": false,
+"name": &"bomb",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_i7hwe")
+}],
+"loop": false,
+"name": &"energy",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_83u28")
+}],
+"loop": false,
+"name": &"shield",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_qdohp")
+}],
+"loop": false,
+"name": &"spread",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v44h2"]
+size = Vector2(27, 28)
+
+[node name="powerupBase" type="Area2D"]
+collision_mask = 7
+script = ExtResource("1_tdtgw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0jyj6")
+animation = &"spread"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_v44h2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

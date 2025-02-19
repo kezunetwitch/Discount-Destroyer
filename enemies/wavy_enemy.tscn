@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctrcclkvov527"]
+
+[ext_resource type="PackedScene" uid="uid://bhws4beiekc2x" path="res://enemies/basic_enemy.tscn" id="1_opbic"]
+[ext_resource type="Script" path="res://enemies/wavy_enemy.gd" id="2_aixyu"]
+[ext_resource type="Texture2D" uid="uid://cj1821d7dbi4p" path="res://assets/enemies/enemyRed5.png" id="3_ytet6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0itvw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ytet6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="WavyEnemy" instance=ExtResource("1_opbic")]
+script = ExtResource("2_aixyu")
+bob_height = 250.0
+bob_speed = 2.5
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_0itvw")
+
+[node name="shoot_timer" parent="." index="3"]
+wait_time = 0.5
