@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://rvoldsynbwqw"]
+
+[ext_resource type="Script" path="res://enemies/boss.gd" id="1_6dexl"]
+[ext_resource type="PackedScene" uid="uid://bhws4beiekc2x" path="res://enemies/basic_enemy.tscn" id="1_71lad"]
+[ext_resource type="Texture2D" uid="uid://byvjo6che1t3u" path="res://assets/enemies/enemyBlue3.png" id="2_qiknm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mo5ei"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qiknm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8xohi"]
+
+[node name="Boss" instance=ExtResource("1_71lad")]
+script = ExtResource("1_6dexl")
+bob_height = 850.0
+bob_speed = 1.5
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_mo5ei")
+
+[node name="CollisionShape2D" parent="." index="1"]
+scale = Vector2(12.3608, 9.99246)
+shape = SubResource("CircleShape2D_8xohi")
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="2"]
+position = Vector2(0, -120)
+
+[node name="muzzle" parent="." index="4"]
+position = Vector2(0, 96)
+
+[node name="shoot_vissy" parent="muzzle" index="0"]
+position = Vector2(0, -192)

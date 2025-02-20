@@ -526,7 +526,7 @@ position = Vector2(576, -1272)
 scale = Vector2(72.8, 1)
 collision_mask = 7
 script = ExtResource("7_ppy82")
-scene_path = "res://levels/boss_battle.tscn"
+scene_path = "res://levels/boss_fight.tscn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="level_completer"]
 shape = SubResource("RectangleShape2D_c1tjk")
