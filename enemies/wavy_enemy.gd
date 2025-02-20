@@ -11,6 +11,7 @@ func _ready() -> void:
 	speed  = 20
 	powerup_rate = 5
 	health  = 30
+	homing_chance = 100
 
 func _physics_process(delta: float) -> void:
 	if on_screen and !dead:

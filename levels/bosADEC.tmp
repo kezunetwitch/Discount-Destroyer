@@ -1,0 +1,102 @@
+[gd_scene load_steps=11 format=3 uid="uid://dbah41qpf52ah"]
+
+[ext_resource type="PackedScene" uid="uid://bq7cse635gdg" path="res://player/player.tscn" id="1_b1gfe"]
+[ext_resource type="PackedScene" uid="uid://b41fya7gss7m0" path="res://enemies/weapons/homing_bullet.tscn" id="2_5ld7o"]
+[ext_resource type="Script" path="res://camera.gd" id="2_du7eg"]
+[ext_resource type="PackedScene" uid="uid://rvoldsynbwqw" path="res://enemies/boss.tscn" id="6_c0xpp"]
+[ext_resource type="Script" path="res://gui.gd" id="6_jgsqj"]
+[ext_resource type="Script" path="res://levels/level_completer.gd" id="7_e73ab"]
+[ext_resource type="PackedScene" uid="uid://ca250nn1ekw2o" path="res://pausemenu.tscn" id="8_djjss"]
+[ext_resource type="PackedScene" uid="uid://c5fvnmr340ifn" path="res://powerups/powerup_base.tscn" id="9_q1c5f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xdd6j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eusdv"]
+
+[node name="Level1" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_b1gfe")]
+position = Vector2(576, 584)
+
+[node name="Bullets" type="Node2D" parent="."]
+
+[node name="HomingBullet" parent="Bullets" instance=ExtResource("2_5ld7o")]
+position = Vector2(768, 192)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+script = ExtResource("2_du7eg")
+
+[node name="enemyeraser" type="Area2D" parent="Camera2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/enemyeraser"]
+position = Vector2(576, 744)
+scale = Vector2(95.2683, 1)
+shape = SubResource("RectangleShape2D_xdd6j")
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Boss" parent="Enemies" instance=ExtResource("6_c0xpp")]
+position = Vector2(156, 48)
+
+[node name="GUI" type="CanvasLayer" parent="."]
+script = ExtResource("6_jgsqj")
+
+[node name="Health" type="Label" parent="GUI"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Health "
+
+[node name="Bombs" type="Label" parent="GUI"]
+offset_top = 24.0
+offset_right = 54.0
+offset_bottom = 47.0
+text = "Bombs"
+
+[node name="JammedNotifier" type="RichTextLabel" parent="GUI"]
+offset_left = 312.0
+offset_top = 192.0
+offset_right = 840.0
+offset_bottom = 384.0
+bbcode_enabled = true
+text = "[center][font_size=68][color=red][b]GUN JAMMED![/b][/color][/font_size]
+[font_size=38][i]Keep Firing to Clear It![/i][/font_size][/center]"
+
+[node name="Menus" parent="." instance=ExtResource("8_djjss")]
+
+[node name="Powerups" type="Node2D" parent="."]
+
+[node name="powerupBase8" parent="Powerups" instance=ExtResource("9_q1c5f")]
+position = Vector2(480, 96)
+preset = true
+select = 1
+
+[node name="powerupBase7" parent="Powerups" instance=ExtResource("9_q1c5f")]
+position = Vector2(672, 96)
+
+[node name="powerupBase6" parent="Powerups" instance=ExtResource("9_q1c5f")]
+position = Vector2(624, 96)
+preset = true
+
+[node name="powerupBase5" parent="Powerups" instance=ExtResource("9_q1c5f")]
+position = Vector2(528, 96)
+preset = true
+select = 2
+
+[node name="powerupBase4" parent="Powerups" instance=ExtResource("9_q1c5f")]
+position = Vector2(576, 96)
+preset = true
+select = 3
+
+[node name="level_completer" type="Area2D" parent="."]
+position = Vector2(600, 900)
+scale = Vector2(72.8, 1)
+collision_mask = 7
+script = ExtResource("7_e73ab")
+scene_path = "res://main_menu.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="level_completer"]
+shape = SubResource("RectangleShape2D_eusdv")
+
+[connection signal="area_entered" from="Camera2D/enemyeraser" to="Camera2D" method="_on_enemyeraser_area_entered"]
+[connection signal="body_entered" from="level_completer" to="level_completer" method="_on_body_entered"]

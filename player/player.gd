@@ -27,6 +27,8 @@ var jam_buffer : int = 10
 @onready var muzzle : Node = get_node("muzzle")
 @onready var shield : Node = get_node("Shield")
 
+@onready var player_body : Node = get_node("player_body/CollisionShape2D")
+
 var spread_shot : bool = false
 @onready var spread_timer : Node = get_node("spread_timer")
 
@@ -150,6 +152,7 @@ func die() -> void:
 	sprite.play("death")
 	die_sound.play()
 	await get_tree().create_timer(2).timeout
+	player_body.disabled = true
 	get_tree().reload_current_scene()
 
 

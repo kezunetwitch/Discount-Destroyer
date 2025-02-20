@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqygx1n5ks5tp"]
+
+[ext_resource type="Script" path="res://win_screen.gd" id="1_03sx4"]
+[ext_resource type="Script" path="res://levels/level_completer.gd" id="1_kxe8v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3dfrf"]
+
+[node name="WinScreen" type="Node2D"]
+script = ExtResource("1_03sx4")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 1128.0
+offset_bottom = 624.0
+text = "Congratulations you win!
+
+I hope this short game was as fun (and frustrating) for you to play as it was for me to make.
+
+I made this for Brackeys 2025.1 game jam. It's my first jam game!
+
+I'd like to thank Kenney's for the music and sound effects for the game and my friends for playtesting this frustrating little thing.
+
+If you'd like to play again, just tap \"replay\" at the bottom to start again."
+
+[node name="level_completer" type="Area2D" parent="."]
+position = Vector2(600, 900)
+scale = Vector2(72.8, 1)
+collision_mask = 7
+script = ExtResource("1_kxe8v")
+scene_path = "res://main_menu.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="level_completer"]
+shape = SubResource("RectangleShape2D_3dfrf")
+
+[node name="Label" type="Button" parent="."]
+offset_left = 552.0
+offset_top = 468.0
+offset_right = 617.0
+offset_bottom = 499.0
+text = "Restart
+"
+
+[node name="Label2" type="Button" parent="."]
+offset_left = 552.0
+offset_top = 504.0
+offset_right = 609.0
+offset_bottom = 535.0
+text = "Quit"
+
+[connection signal="body_entered" from="level_completer" to="level_completer" method="_on_body_entered"]
+[connection signal="pressed" from="Label" to="." method="_on_label_pressed"]
+[connection signal="pressed" from="Label2" to="." method="_on_label_2_pressed"]

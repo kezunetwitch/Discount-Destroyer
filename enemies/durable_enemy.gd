@@ -6,6 +6,7 @@ func _ready() -> void:
 
 	health  = 200
 	powerup_rate = 3
+	homing_chance = 25
 	enemy_bullet = preload("res://player/weapons/bullet.tscn")
 
 func _process(delta: float) -> void:

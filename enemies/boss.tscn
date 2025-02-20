@@ -21,6 +21,7 @@ animations = [{
 script = ExtResource("1_6dexl")
 bob_height = 850.0
 bob_speed = 1.5
+homing_chance = 10
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 scale = Vector2(3, 3)

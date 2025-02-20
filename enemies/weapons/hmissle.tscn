@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxi2jsf6ct20h"]
+
+[ext_resource type="Script" path="res://enemies/weapons/hmissle.gd" id="1_gaj47"]
+[ext_resource type="AudioStream" uid="uid://cuqt3cjlhqori" path="res://assets/player/rumble3.ogg" id="2_hj6xo"]
+[ext_resource type="Texture2D" uid="uid://b4ud87y78pu1k" path="res://assets/weapons/laserRed10.png" id="3_jkagy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_46qwk"]
+
+[node name="Hmissle" type="Area2D"]
+collision_mask = 7
+script = ExtResource("1_gaj47")
+
+[node name="pop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_hj6xo")
+volume_db = -7.0
+pitch_scale = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_jkagy")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_46qwk")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="pop" to="." method="_on_pop_finished"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -522,7 +522,7 @@ text = "[center][font_size=68][color=red][b]GUN JAMMED![/b][/color][/font_size]
 [font_size=38][i]Keep Firing to Clear It![/i][/font_size][/center]"
 
 [node name="level_completer" type="Area2D" parent="."]
-position = Vector2(576, -1272)
+position = Vector2(576, -1512)
 scale = Vector2(72.8, 1)
 collision_mask = 7
 script = ExtResource("7_ppy82")

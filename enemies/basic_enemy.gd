@@ -8,10 +8,12 @@ var dead : bool = false
 
 var on_screen : bool
 var can_shoot : bool
+var homing_chance : int = 50
 
 var powerup_rate : int = 10
 
 @onready var enemy_bullet : PackedScene = preload("res://player/weapons/bullet.tscn")
+@onready var homing_bullet : PackedScene = preload("res://enemies/weapons/hmissle.tscn")
 @onready var bullet_storage : Node = get_parent().get_parent().get_node("Bullets")
 @onready var muzzle : Node = get_node("muzzle")
 @onready var shoot_timer : Node = get_node("shoot_timer")
@@ -101,3 +103,9 @@ func shoot_bullet() -> void:
 		b.global_position = muzzle.global_position
 		b.bullet_origin = "enemy"
 		b.sprite.play("enemy")
+		var hbc = randi_range(1,homing_chance)
+		if hbc == 1:
+			var h = homing_bullet.instantiate()
+			bullet_storage.add_child(h)
+			h.global_position = muzzle.global_position
+			h.bullet_origin = "enemy"
